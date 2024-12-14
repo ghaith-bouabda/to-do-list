@@ -9,8 +9,8 @@ import java.util.List;
 @RequestMapping("/users")
 @RequiredArgsConstructor
 public class UsersController {
-    UsersService usersService;
-@PostMapping("/createuser")
+private final UsersService usersService;
+    @PostMapping("/createuser")
     public Users createUser(@RequestBody Users user) {
        return usersService.createUser(user);
 }

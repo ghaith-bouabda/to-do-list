@@ -1,11 +1,14 @@
 package com.ghaith.todolistbackend.Users;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Entity
 @Table(name = "users")
-@Data 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
