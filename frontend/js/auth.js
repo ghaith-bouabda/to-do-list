@@ -1,4 +1,4 @@
-const apiBase = 'http://localhost:8080/api/auth';
+const apiBase = 'http://localhost:8080/users';
 
 async function login() {
     const username = document.getElementById('username').value;
@@ -23,7 +23,7 @@ async function register() {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    const response = await fetch(`${apiBase}/register`, {
+    const response = await fetch(`${apiBase}/createuser`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, email, password }),
