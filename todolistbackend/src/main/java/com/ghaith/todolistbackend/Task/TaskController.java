@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://172.17.0.1:3000")
+
 @RequestMapping("/api/tasks")
 @RequiredArgsConstructor  // Lombok annotation to generate constructor with required arguments
 public class TaskController {

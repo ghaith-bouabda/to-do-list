@@ -15,4 +15,11 @@ public class UsersService {
     public Users createUser(Users users) {
         return usersRepository.save(users);
     }
+
+    public boolean authenticateUser(String username, String password) {
+if (usersRepository.findByUsernameAndPassword(username, password)!=null) {
+    return true;
+}else return false;
+
+    }
 }
