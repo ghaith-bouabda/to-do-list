@@ -1,9 +1,8 @@
 package com.ghaith.todolistbackend.Task;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.ghaith.todolistbackend.Users.Users;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,9 +17,14 @@ public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
+
     private String title;
+
     private boolean completed;
-
-
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = true)
+    @JsonBackReference
+    private Users user;
 }

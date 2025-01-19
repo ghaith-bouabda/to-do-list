@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://172.17.0.1:3000")
+@CrossOrigin(origins = "http://172.18.0.1:8000")
 
 @RequestMapping("/api/tasks")
 @RequiredArgsConstructor  // Lombok annotation to generate constructor with required arguments
@@ -16,18 +16,15 @@ public class TaskController {
 
     // Get all tasks
     @GetMapping
-    public List<Task> getAllTasks() {
-        return taskService.getAllTasks();
+    public List<Task> getAllTasksbyuser(@RequestParam Long userId) {
+        return taskService.getAllTasksbyUserId(userId);
     }
 
     // Get task by ID
-    @GetMapping("/{id}")
-    public Task getTaskById(@PathVariable Long id) {
-        return taskService.getTaskById(id);
-    }
+
 
     // Create new task
-    @PostMapping
+    @PostMapping("/createtask")
     public Task createTask(@RequestBody Task task) {
         return taskService.createTask(task);
     }

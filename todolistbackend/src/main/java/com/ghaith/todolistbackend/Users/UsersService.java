@@ -15,11 +15,15 @@ public class UsersService {
     public Users createUser(Users users) {
         return usersRepository.save(users);
     }
+   public Users findUserByUsername(String username) {
+        return usersRepository.findByUsername(username);
+   }
 
     public boolean authenticateUser(String username, String password) {
 if (usersRepository.findByUsernameAndPassword(username, password)!=null) {
     return true;
-}else return false;
+}else
+    return false;
 
     }
 }

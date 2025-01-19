@@ -8,7 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
-@CrossOrigin(origins = "http://172.17.0.1:3000")
+@CrossOrigin(origins = "http://172.18.0.1:8000")
 @RequiredArgsConstructor
 public class UsersController {
 private final UsersService usersService;
@@ -19,6 +19,11 @@ private final UsersService usersService;
 @GetMapping("/getusers")
    public List<Users> getAllUsers() {
     return usersService.getAllUsers();
+
+}
+@GetMapping("/getuser")
+public Users getUserByUsername(@RequestParam("username") String username) {
+        return usersService.findUserByUsername(username);
 }
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody UsersDto usersDTO) {

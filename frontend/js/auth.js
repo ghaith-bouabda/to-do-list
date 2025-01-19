@@ -11,11 +11,20 @@ async function login() {
     });
 
     if (response.ok) {
-        alert('Login successful');
-        window.location.href = 'index.html';
-    } else {
-        alert('Invalid credentials');
-    }
+        const userResponse = await fetch(`http://localhost:8080/users/getuser?username=${username}`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        });
+       const userResponse2 = await userResponse.json();
+        localStorage.setItem('user', JSON.stringify(userResponse2));
+        localStorage.setItem('authToken', 'your-jwt-token'); // Example: Store JWT
+
+        window.location.href = 'dashboard.html';
+        }
+    else {
+            alert('Invalid credentials');
+        }
+
 }
 
 async function register() {

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #343a40;
+            color: #fff;
+        }
+        .sidebar a {
+            color: #adb5bd;
+            text-decoration: none;
+        }
+        .sidebar a:hover {
+            color: #fff;
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+
+<div class="sidebar d-flex flex-column p-3">
+    <h4 class="text-center">Dashboard</h4>
+    <hr>
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Tasks</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Users</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Reports</a>
+        </li>
+    </ul>
+    <hr>
+    <button  class="btn btn-danger w-100" onclick="logout()">Logout</button>
+</div>
+
+<!-- Main Content -->
+<div class="content">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <span class="navbar-brand">Welcome, <span id="username_placeholder"> </span> !</span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Settings</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h2>Main Content</h2>
+        <p>This is the main area of your dashboard. Add widgets, charts, or other content here.</p>
+
+
+            <div class="col-md-4">
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div id="app">
+                        <h1>To-Do List</h1>
+                        <ul id="tasks"></ul>
+                        <input type="text" id="taskInput" placeholder="Add a new task">
+                        <button onclick="addTask()">Add Task</button>
+                    </div>
+       </div>
+</div>
+</body>
+        <script src="js/app.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+</html>
