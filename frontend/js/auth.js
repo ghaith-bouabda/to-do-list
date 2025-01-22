@@ -1,30 +1,35 @@
 const apiBase = 'http://localhost:8080/users';
 
-async function login() {
+
+function login() {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
-
-    const response = await fetch(`${apiBase}/login`, {
+    fetch('http://localhost:8080/users/login', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
-    });
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            username: username,
+            password: password,
+        }),
+    })
+        .then(response => {
+            if (response.ok) {
 
-    if (response.ok) {
-        const userResponse = await fetch(`http://localhost:8080/users/getuser?username=${username}`, {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
+                return response.text();
+            } else {
+                throw new Error('Invalid credentials');
+            }
+        })
+        .then(token => {
+           adduser().then(r => console.log(r));
+            localStorage.setItem('jwtToken', token);
+            window.location.href = 'dashboard.html';  // Redirect to protected page
+        })
+        .catch(error => {
+            alert(error.message);
         });
-       const userResponse2 = await userResponse.json();
-        localStorage.setItem('user', JSON.stringify(userResponse2));
-        localStorage.setItem('authToken', 'your-jwt-token'); // Example: Store JWT
-
-        window.location.href = 'dashboard.html';
-        }
-    else {
-            alert('Invalid credentials');
-        }
-
 }
 
 async function register() {
@@ -43,5 +48,26 @@ async function register() {
         window.location.href = 'login.html';
     } else {
         alert('Registration failed');
+    }
+}
+
+async function fetchUserDetails(username, token) {
+    try {
+        const response = await fetch(`http://localhost:8080/users/getuser?username=${username}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`, // Send the JWT token in the header
+            },
+        });
+
+        if (response.ok) {
+            const userJson = await response.json();
+            localStorage.setItem('user', JSON.stringify(userJson));  // Store user details in localStorage
+        } else {
+            throw new Error('Failed to fetch user details');
+        }
+    } catch (error) {
+        console.error('Error fetching user details:', error.message);
     }
 }

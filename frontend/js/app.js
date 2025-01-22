@@ -1,9 +1,7 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const authToken = localStorage.getItem('authToken');
-    if (!authToken) {
-        window.location.href = 'login.html';
-    }
-});
+
+if (!isLoggedIn()) {
+    window.location.href = 'login.html';  // Redirect to login page if not logged in
+}
 const apiBase = 'http://localhost:8080/api/tasks';
 
 const user= JSON.parse(localStorage.getItem('user'));
@@ -36,9 +34,59 @@ async function addTask() {
     taskInput.value = '';
     await fetchTasks();
 }
-async function logout() {
-    localStorage.removeItem('authToken');
+function logout() {
+    fetch('http://localhost:8080/logout', {
+        method: 'POST',
+        credentials: 'include' // Ensure cookies are included in the request
+    })
+        .then(response => {
+            if (response.ok) {
+                console.log('Logout successful');
+                localStorage.removeItem('jwtToken');
+                localStorage.removeItem('user');
+                window.location.href = 'login.html'; // Adjust the redirect URL as needed
+            } else {
+                console.error('Logout failed');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+function isLoggedIn() {
+    const token = localStorage.getItem('jwtToken');
+
+    if (!token) {
+        // Token is not present, redirect to login page
+        window.location.href = 'login.html';
+        return false;
+    }
+
+    const isValid = validateToken(token); // Write your own token validation logic
+    if (isValid) {
+        return true;
+    } else {
+        // Invalid token, clear the stored token and redirect
+        localStorage.removeItem('jwtToken');
+        window.location.href = '/login';
+        return false;
+    }
+}
+function validateToken(token) {
+    // Decode the token and check its expiration
+    // Optionally, you can use a library like jwt-decode to decode the JWT
+    const payload = decodeJwt(token);
+    if (payload && payload.exp > Date.now() / 1000) {
+        return true;  // Token is valid
+    }
+    return false;  // Token has expired
 }
 
-
-document.addEventListener('DOMContentLoaded', fetchTasks);
+function decodeJwt(token) {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace('-', '+').replace('_', '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(jsonPayload);
+}
