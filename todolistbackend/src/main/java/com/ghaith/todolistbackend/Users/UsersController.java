@@ -26,7 +26,6 @@ public class UsersController {
         boolean isAuthenticated = usersService.authenticateUser(usersDTO.username(), usersDTO.password());
 
         if (isAuthenticated) {
-            // Generate JWT token upon successful authentication
             return ResponseEntity.ok("Bearer ");
         } else {
             return ResponseEntity.status(401).body("Invalid credentials");
