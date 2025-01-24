@@ -10,11 +10,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
-
+@Data
 @Entity
 @Table(name = "users")
-@Getter
-@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Users implements UserDetails {
@@ -33,6 +32,8 @@ public class Users implements UserDetails {
         private String password;
         @Enumerated(EnumType.STRING)
         private Role role;
+
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

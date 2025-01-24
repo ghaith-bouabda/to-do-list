@@ -11,25 +11,8 @@ import org.springframework.web.bind.annotation.*;
 public class UsersController {
     private final UsersService usersService;
 
-    @PostMapping("/createuser")
-    public Users createUser(@RequestBody Users user) {
-        return usersService.createUser(user.getUsername(), user.getEmail(), user.getPassword());
-    }
 
-    @GetMapping("/getuser")
-    public Users getUserByUsername(@RequestParam("username") String username) {
-        return usersService.findUserByUsername(username);
-    }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody UsersDto usersDTO) {
-        boolean isAuthenticated = usersService.authenticateUser(usersDTO.username(), usersDTO.password());
 
-        if (isAuthenticated) {
-            return ResponseEntity.ok("Bearer ");
-        } else {
-            return ResponseEntity.status(401).body("Invalid credentials");
-        }
-    }
 }
 

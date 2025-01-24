@@ -25,7 +25,7 @@ public class SecurityConfig {
         http.csrf().disable() // Disable CSRF if you're not using it (optional)
                 .cors().and()  // Enable CORS
                 .authorizeRequests()
-                .requestMatchers("").permitAll()
+                .requestMatchers("/api/auth/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement()
