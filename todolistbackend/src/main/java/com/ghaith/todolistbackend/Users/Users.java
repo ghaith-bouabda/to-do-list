@@ -2,6 +2,7 @@ package com.ghaith.todolistbackend.Users;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.ghaith.todolistbackend.Task.Task;
+import com.ghaith.todolistbackend.Token.Token;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,12 +19,12 @@ import java.util.List;
 @NoArgsConstructor
 public class Users implements UserDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @OneToMany(mappedBy = "user",orphanRemoval = false,cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private List<Task> tasks;
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long id;
+        @OneToMany(mappedBy = "user",orphanRemoval = false,cascade = CascadeType.ALL)
+        @JsonManagedReference
+        private List<Task> tasks;
         @Column(nullable = false, unique = true)
         private String username;
         @Column(nullable = false ,unique = true)
@@ -32,7 +33,8 @@ public class Users implements UserDetails {
         private String password;
         @Enumerated(EnumType.STRING)
         private Role role;
-
+        @OneToMany(mappedBy = "user")
+        private List<Token> tokens;
 
 
     @Override

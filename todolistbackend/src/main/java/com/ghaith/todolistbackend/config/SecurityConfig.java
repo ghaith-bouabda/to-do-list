@@ -1,6 +1,5 @@
 package com.ghaith.todolistbackend.config;
 
-import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,20 +9,22 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-
     private final JwtAuthentificationFilter jwtAuthentificationFilter;
-    private final AuthenticationProvider AuthenticationProvider;
+    private final AuthenticationProvider authenticationProvider;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable() // Disable CSRF if you're not using it (optional)
-                .cors().and()  // Enable CORS
+        http.csrf().disable()
+                .cors().and()
                 .authorizeRequests()
                 .requestMatchers("/api/auth/**").permitAll()
                 .anyRequest().authenticated()
@@ -31,8 +32,21 @@ public class SecurityConfig {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authenticationProvider(AuthenticationProvider)
-                .addFilterBefore(jwtAuthentificationFilter, UsernamePasswordAuthenticationFilter.class);
+                .authenticationProvider(authenticationProvider)
+
+                .addFilterBefore(jwtAuthentificationFilter, UsernamePasswordAuthenticationFilter.class)
+                .logout()
+                .logoutUrl("/logout") // Logout endpoint
+                .invalidateHttpSession(true) // Invalidate the session (though sessions are not used)
+                .deleteCookies("JSESSIONID") // Clear cookies (if any)
+                .logoutSuccessHandler((request, response, authentication) -> {
+                    response.setStatus(200); // Return a 200 OK status
+                    response.getWriter().write("Logged out successfully");
+                    response.getWriter().flush();
+                })
+                .permitAll();
         return http.build();
     }
+
+
 }
