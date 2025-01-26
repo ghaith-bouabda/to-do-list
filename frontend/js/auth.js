@@ -1,35 +1,24 @@
-const apiBase = 'http://localhost:8080/users';
 
 
-function login() {
+async function login() {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
-    fetch('http://localhost:8080/users/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            username: username,
-            password: password,
-        }),
-    })
-        .then(response => {
-            if (response.ok) {
 
-                return response.text();
-            } else {
-                throw new Error('Invalid credentials');
-            }
-        })
-        .then(token => {
-           adduser().then(r => console.log(r));
-            localStorage.setItem('jwtToken', token);
-            window.location.href = 'dashboard.html';  // Redirect to protected page
-        })
-        .catch(error => {
-            alert(error.message);
-        });
+    const response = await fetch(`http://localhost:8080/api/auth/auth`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({username, password}),
+    });
+
+    if (response.ok) {
+const  result = await response.json();
+localStorage.setItem('token',result.token);
+        window.location.href = 'dashboard.html';
+        return response.text();
+    } else {
+        throw new Error('Invalid credentials');
+    }
+
 }
 
 async function register() {
@@ -37,7 +26,7 @@ async function register() {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    const response = await fetch(`${apiBase}/createuser`, {
+    const response = await fetch(`http://localhost:8080/api/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, email, password }),
@@ -51,23 +40,4 @@ async function register() {
     }
 }
 
-async function fetchUserDetails(username, token) {
-    try {
-        const response = await fetch(`http://localhost:8080/users/getuser?username=${username}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`, // Send the JWT token in the header
-            },
-        });
-
-        if (response.ok) {
-            const userJson = await response.json();
-            localStorage.setItem('user', JSON.stringify(userJson));  // Store user details in localStorage
-        } else {
-            throw new Error('Failed to fetch user details');
-        }
-    } catch (error) {
-        console.error('Error fetching user details:', error.message);
-    }
-}
+0

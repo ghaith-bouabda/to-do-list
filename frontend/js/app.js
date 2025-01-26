@@ -1,7 +1,4 @@
 
-if (!isLoggedIn()) {
-    window.location.href = 'login.html';  // Redirect to login page if not logged in
-}
 const apiBase = 'http://localhost:8080/api/tasks';
 
 const user= JSON.parse(localStorage.getItem('user'));
@@ -54,10 +51,10 @@ function logout() {
         });
 }
 function isLoggedIn() {
-    const token = localStorage.getItem('jwtToken');
+    const token = localStorage.getItem('token');
 
     if (!token) {
-        // Token is not present, redirect to login page
+
         window.location.href = 'login.html';
         return false;
     }
