@@ -1,5 +1,6 @@
 package com.ghaith.todolistbackend.config;
 
+import com.ghaith.todolistbackend.Token.TokenRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ public class JwtAuthentificationFilter extends OncePerRequestFilter {
 
     private JwtService jwtService;
     private final UserDetailsService UserDetailsService;
+    private final TokenRepository   tokenRepository;
 
     @Override
     protected void doFilterInternal(
@@ -40,7 +42,10 @@ public class JwtAuthentificationFilter extends OncePerRequestFilter {
         Useremail= jwtService.extractUsername(jwt);
         if(Useremail !=null && SecurityContextHolder.getContext().getAuthentication()==null){
             UserDetails userDetails = this.UserDetailsService.loadUserByUsername(Useremail);
-            if (jwtService.isTokenValid(jwt,userDetails)){
+            var isTokenValid= tokenRepository.findByToken(jwt)
+                    .map(token -> !token.isExpired() && !token.isRevoked())
+                    .orElse(false);
+            if (jwtService.isTokenValid(jwt,userDetails) && isTokenValid) {
                 UsernamePasswordAuthenticationToken authenticationToken= new UsernamePasswordAuthenticationToken
                         (userDetails,
                         null,

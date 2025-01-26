@@ -7,11 +7,11 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
+
 
 @Configuration
 @EnableWebSecurity
@@ -20,7 +20,7 @@ public class SecurityConfig {
 
     private final JwtAuthentificationFilter jwtAuthentificationFilter;
     private final AuthenticationProvider authenticationProvider;
-
+    private final LogoutHandler logoutHandler;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
@@ -36,16 +36,10 @@ public class SecurityConfig {
 
                 .addFilterBefore(jwtAuthentificationFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout()
-                .logoutUrl("/logout") // Logout endpoint
-                .invalidateHttpSession(true) // Invalidate the session (though sessions are not used)
-                .deleteCookies("JSESSIONID") // Clear cookies (if any)
-                .logoutSuccessHandler((request, response, authentication) -> {
-                    response.setStatus(200); // Return a 200 OK status
-                    response.getWriter().write("Logged out successfully");
-                    response.getWriter().flush();
-                })
-                .permitAll();
-        return http.build();
+                .logoutUrl("/api/auth/logout")
+                .addLogoutHandler(logoutHandler)
+                .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext());
+    return http.build();
     }
 
 

@@ -70,7 +70,7 @@ public AuthenticationResponse  register(RegisterRequest RegisterRequest) {
   var user = usersRepository.findByUsername(authenticationRequest.getUsername())
           .orElseThrow();
     var JwtToken= jwtService.generateToken(user);
-
+    RevokeUserToken(user);
     SaveUserToken(user, JwtToken);
     return AuthenticationResponse.builder().token(JwtToken).build();
 }
