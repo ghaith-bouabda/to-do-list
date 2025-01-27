@@ -1,8 +1,12 @@
 package com.ghaith.todolistbackend.auth;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -28,4 +32,12 @@ public class AuthenticationController {
     {
         return ResponseEntity.ok(authenticationService.authenticate(request));
         }
+
+    @PostMapping("/refresh")
+    public void refresh (
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) throws IOException {
+        authenticationService.refreshToken(request,response);
+}
 }
