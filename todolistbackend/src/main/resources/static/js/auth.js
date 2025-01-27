@@ -40,4 +40,3 @@ async function register() {
     }
 }
 
-0
