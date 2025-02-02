@@ -1,33 +1,39 @@
 .navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 16px 20px 30px 20px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
-  background-color: #333;
+  transition: 0.3s ease-out;
+  backdrop-filter: blur(8px) brightness(1.2);
+  -webkit-backdrop-filter: blur(8px) brightness(1.2);
+  text-shadow: 0 0 5px rgba(0,0,0,0.5);
   color: white;
+  font-size: 16px;
 }
-
+.list {
+  list-style-type: none;
+  margin-left: auto;
+  margin-right: 50px;
+  display: none;
+  @media (min-width: 640px) {
+    display: flex;
+  } }
+li {
+  margin-left: 20px;
+}
 .logo a {
   font-size: 1.5rem;
   font-weight: bold;
   color: white;
   text-decoration: none;
 }
-
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 1rem;
-  margin: 0;
-  padding: 0;
-}
-
-.nav-links li a {
-  color: white;
+li a{
   text-decoration: none;
-  font-size: 1rem;
 }
 
-.nav-links li a:hover {
+ li a:hover,visited {
   color: #ffc107;
 }

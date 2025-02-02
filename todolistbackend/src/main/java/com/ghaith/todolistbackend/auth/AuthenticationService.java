@@ -15,6 +15,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Service;
@@ -55,7 +56,7 @@ public AuthenticationResponse  register(RegisterRequest RegisterRequest) {
             .build();
     }
     private void RevokeUserToken(Users user) {
-    var UserAllTokens = tokenRepository.findAllValidTokenByUser(user);
+    var UserAllTokens = tokenRepository.findAllValidTokenByUser(user.getId());
     if (UserAllTokens.isEmpty()) {
         return;
     }
@@ -102,14 +103,14 @@ public AuthenticationResponse  register(RegisterRequest RegisterRequest) {
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
         final String refresh;
-        final String Useremail;
+        final String Username;
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             return;
         }
         refresh = authHeader.substring(7);
-        Useremail= jwtService.extractUsername(refresh);
-        if(Useremail !=null ){
-            var user= this.usersRepository.findByEmail(Useremail).orElseThrow();
+        Username= jwtService.extractUsername(refresh);
+        if(Username !=null ){
+            var user= this.usersRepository.findByUsername(Username).orElseThrow();
 
             if (jwtService.isTokenValid(refresh,user) ) {
               var accessToken= jwtService.generateToken(user);
