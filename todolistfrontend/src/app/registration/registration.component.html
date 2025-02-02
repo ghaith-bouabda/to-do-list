@@ -1,0 +1,31 @@
+<div class="form-container">
+
+    <form class="auth-form">
+        <div class="form-group">
+            <label class="form-label" for="name">username</label>
+            <input [(ngModel)]="username" type="text" id="name" name="name"
+                   class="form-input" placeholder="Enter your full name" required>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="email">Email</label>
+            <input [(ngModel)]="email" type="email" id="email" name="email"
+                   class="form-input" placeholder="Enter your email" required>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="password">Password</label>
+            <input [(ngModel)]="password" type="password" id="password" name="password"
+                   class="form-input" placeholder="Create a password" required>
+        </div>
+
+
+
+        <button  class="form-button" type="submit">Create Account</button>
+
+        <div class="form-links">
+            <a class="form-link" href="/login">Already have an account? Login</a>
+            <a class="form-link" href="/forgot-password">Forgot Password?</a>
+        </div>
+    </form>
+</div>

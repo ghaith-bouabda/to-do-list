@@ -1,7 +1,135 @@
-form{
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
-
-    padding-top: 50px;
-    margin-top: 50px;
-
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem;
+    background: #f8f9fa;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
+
+.auth-form {
+    width: 100%;
+    max-width: 400px;
+    background: #ffffff;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease;
+}
+
+.auth-form:hover {
+    transform: translateY(-2px);
+}
+
+.form-group {
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+    color: #1a1a1a;
+    font-size: 0.925rem;
+}
+
+.form-input {
+    width: 90%;
+    padding: 1rem;
+    border: 2px solid #e0e3e7;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    color: #1a1a1a;
+    background: #ffffff;
+    transition: all 0.3s ease;
+    outline: none;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.form-input:focus {
+    outline: none;
+    border-color: #646cff;
+    box-shadow: 0 0 0 4px rgba(100, 108, 255, 0.15);
+    background: #ffffff;
+}
+
+.form-input::placeholder {
+    color: #a0a0a0;
+    opacity: 1;
+}
+
+.alert-error {
+    width: 100%;
+    max-width: 400px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    background-color: #fee2e2;
+    color: #dc2626;
+    border-radius: 8px;
+    border: 2px solid #fca5a5;
+    animation: fadeInDown 0.4s ease;
+}
+
+.form-button {
+    width: 100%;
+    padding: 1rem;
+    background-color: #646cff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+}
+
+.form-button:hover {
+    background-color: #4f56d8;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(100, 108, 255, 0.25);
+}
+
+.form-button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.form-links {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.form-link {
+    color: #646cff;
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.form-link:hover {
+    color: #4f56d8;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
