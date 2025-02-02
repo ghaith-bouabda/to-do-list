@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import {Router} from "@angular/router";
+import {AuthenticationService} from "../services/services/authentication.service";
+import {RegisterRequest} from "../services/models/register-request";
 
 @Component({
   selector: 'app-registration',
@@ -6,8 +9,21 @@ import { Component } from '@angular/core';
   styleUrl: './registration.component.scss'
 })
 export class RegistrationComponent {
-    username: String | undefined;
-    password: String | undefined;
-    email: String | undefined;
+
+    constructor(private router: Router,
+                private authService: AuthenticationService) {
+    }
+    registerRequest: RegisterRequest = {email: '', username:'', password: ''};
+
+    register(){
+        this.authService.register({
+            body: this.registerRequest
+        }) .subscribe({
+            next: () => {
+                this.router.navigate(['login']);
+            }
+        });
+
+    }
 
 }
