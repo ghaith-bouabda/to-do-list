@@ -1,49 +1,55 @@
 {
-  "hash": "46b8aa72",
-  "configHash": "33ab0fed",
-  "lockfileHash": "e79b419d",
-  "browserHash": "e91a294d",
+  "hash": "cb25f8f7",
+  "configHash": "de14c5da",
+  "lockfileHash": "9cf58047",
+  "browserHash": "1084eb78",
   "optimized": {
     "@angular/common/http": {
       "src": "../../../../../../node_modules/@angular/common/fesm2022/http.mjs",
       "file": "@angular_common_http.js",
-      "fileHash": "52cbc984",
+      "fileHash": "78f42c86",
       "needsInterop": false
     },
     "@angular/core": {
       "src": "../../../../../../node_modules/@angular/core/fesm2022/core.mjs",
       "file": "@angular_core.js",
-      "fileHash": "852ad0e6",
+      "fileHash": "f73d1d36",
       "needsInterop": false
     },
     "@angular/forms": {
       "src": "../../../../../../node_modules/@angular/forms/fesm2022/forms.mjs",
       "file": "@angular_forms.js",
-      "fileHash": "f4fd8c76",
+      "fileHash": "35a66c95",
       "needsInterop": false
     },
     "@angular/platform-browser": {
       "src": "../../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
       "file": "@angular_platform-browser.js",
-      "fileHash": "24f7b684",
+      "fileHash": "9bb7a9e4",
       "needsInterop": false
     },
     "@angular/router": {
       "src": "../../../../../../node_modules/@angular/router/fesm2022/router.mjs",
       "file": "@angular_router.js",
-      "fileHash": "97fc4104",
+      "fileHash": "9cb3ab1f",
       "needsInterop": false
     },
     "rxjs/operators": {
       "src": "../../../../../../node_modules/rxjs/dist/esm5/operators/index.js",
       "file": "rxjs_operators.js",
-      "fileHash": "26763e0a",
+      "fileHash": "116737c3",
       "needsInterop": false
     },
     "@angular/common": {
       "src": "../../../../../../node_modules/@angular/common/fesm2022/common.mjs",
       "file": "@angular_common.js",
-      "fileHash": "dc8dbcc5",
+      "fileHash": "ae9804f7",
+      "needsInterop": false
+    },
+    "@auth0/angular-jwt": {
+      "src": "../../../../../../node_modules/@auth0/angular-jwt/fesm2020/auth0-angular-jwt.mjs",
+      "file": "@auth0_angular-jwt.js",
+      "fileHash": "44a29878",
       "needsInterop": false
     }
   },
