@@ -12,37 +12,29 @@ import {register} from "../services/fn/authentication/register";
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
- authReq : AuthenticationRequest={username:'',password:''}
+ authReq : AuthenticationRequest={password:'',username:''}
     errorMsg: Array<any> = [];
  constructor(private authservice :  AuthenticationService , private router: Router,
     private TokenService:TokenService
 ) {
  }
     login() {
-        this.errorMsg= [];
+        this.errorMsg = [];
         this.authservice.authentication({
-            body: this.authReq,
+            body: this.authReq
+        }).subscribe({
+            next: (res) => {
 
-        }).subscribe
-        ({next:(response: AuthenticationResponse)=>{
-
-                this.TokenService.token= response.accessToken as string;
+                this.TokenService.token = res.accessToken as string;
+                console.log(res.accessToken);
+                console.log(this.TokenService.token);
                 this.router.navigate(['dashboard']);
-
-        }
-            ,
-            error: (err) => {
-                console.log(err);
-                if (err.error.validationErrors) {
-                    this.errorMsg = err.error.validationErrors;
-                } else {
-                    this.errorMsg.push(err.error.errorMsg);
-                }
             }
-        })
+        });
     }
 
-  register(){
+
+    register(){
      this.router.navigate(['register']);
   }
 }
