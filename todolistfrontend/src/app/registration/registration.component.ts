@@ -4,9 +4,10 @@ import {AuthenticationService} from "../services/services/authentication.service
 import {RegisterRequest} from "../services/models/register-request";
 
 @Component({
-  selector: 'app-registration',
-  templateUrl: './registration.component.html',
-  styleUrl: './registration.component.scss'
+    selector: 'app-registration',
+    templateUrl: './registration.component.html',
+    styleUrl: './registration.component.scss',
+    standalone: false
 })
 export class RegistrationComponent {
 
