@@ -23,7 +23,6 @@ export class LoginComponent {
             body: this.authReq
         }).subscribe({
             next: (res) => {
-                console.log(res)
                 this.TokenService.token = res.accessToken as string;
 
                 this.router.navigate(['dashboard']);
