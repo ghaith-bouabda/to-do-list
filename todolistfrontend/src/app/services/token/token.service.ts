@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {JwtHelperService} from "@auth0/angular-jwt";
+import {jwtDecode} from "jwt-decode";
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +31,14 @@ export class TokenService {
 
     isTokenExpired() {
         return !this.isTokenValid();
+    }
+    decodeToken(): any {
+        if (!this.token) return null;
+        try {
+            return jwtDecode(this.token);
+        } catch (error) {
+            console.error('Invalid token', error);
+            return null;
+        }
     }
 }

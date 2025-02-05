@@ -18,7 +18,8 @@ import { refresh } from '../fn/authentication/refresh';
 import { Refresh$Params } from '../fn/authentication/refresh';
 import { register } from '../fn/authentication/register';
 import { Register$Params } from '../fn/authentication/register';
-
+import {Logout$Params} from "../fn/authentication/logout";
+import { logout } from '../fn/authentication/logout';
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
@@ -99,5 +100,16 @@ export class AuthenticationService extends BaseService {
       map((r: StrictHttpResponse<AuthenticationResponse>): AuthenticationResponse => r.body)
     );
   }
+
+  logout$Response(params?: Logout$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return logout(this.http, this.rootUrl, params, context);
+  }
+
+  logout(params?: Logout$Params, context?: HttpContext): Observable<void> {
+    return this.logout$Response(params, context).pipe(
+        map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
 
 }

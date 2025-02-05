@@ -15,6 +15,7 @@ export interface Authentication$Params {
       body: AuthenticationRequest
 }
 
+
 export function authentication(http: HttpClient, rootUrl: string, params: Authentication$Params, context?: HttpContext): Observable<StrictHttpResponse<AuthenticationResponse>> {
   const rb = new RequestBuilder(rootUrl, authentication.PATH, 'post');
   if (params) {

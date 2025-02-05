@@ -1,5 +1,6 @@
 package com.ghaith.todolistbackend.Users;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.ghaith.todolistbackend.Task.Task;
 import com.ghaith.todolistbackend.Token.Token;
@@ -19,6 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Users implements UserDetails {
 
+        @Getter
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
@@ -30,10 +32,12 @@ public class Users implements UserDetails {
         @Column(nullable = false ,unique = true)
         private String email;
         @Column(nullable = false)
+        @JsonIgnore
         private String password;
         @Enumerated(EnumType.STRING)
         private Role role;
         @OneToMany(mappedBy = "user")
+        @JsonIgnore
         private List<Token> tokens;
 
 

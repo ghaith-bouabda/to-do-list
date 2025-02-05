@@ -8,11 +8,29 @@
 }
 
 .sidebar {
-  background-color: #f5f5f5; /* Light grey */
-  backdrop-filter: blur(10px); /* Optional blur */
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f5f5;
+  backdrop-filter: blur(10px);
   height: 100%;
-  padding: 1rem;
+  padding: 2%;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.logout-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: auto;
+  margin-bottom: 10px; /* Pushes it to the bottom */
+}
+
+.logout-btn:hover {
+  background-color: darkred;
 }
 
 .sidebar-header {

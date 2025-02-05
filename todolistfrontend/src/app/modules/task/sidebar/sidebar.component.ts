@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import {Router} from "@angular/router";
+import {authentication} from "../../../services/fn/authentication/authentication";
+import {AuthenticationService} from "../../../services/services/authentication.service";
 
 @Component({
   selector: 'app-sidebar',
@@ -8,5 +11,19 @@ import { Component } from '@angular/core';
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent {
+  constructor(private router: Router ,private authenticationService: AuthenticationService) {
+  }
+
+  logout() {
+    this.authenticationService.logout().subscribe({
+      next: () => {
+        localStorage.clear();
+        this.router.navigate(['/login']); // Redirect to login page
+      },
+      error: (err) => {
+        console.error('Logout failed:', err);
+      }
+    });
+  }
 
 }
