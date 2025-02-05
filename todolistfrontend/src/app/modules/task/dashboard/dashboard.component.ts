@@ -3,6 +3,7 @@ import { TaskControllerService } from "../../../services/services/task-controlle
 import { Router } from "@angular/router";
 import { Task } from "../../../services/models/task";
 import {GetAllTasksbyuser$Params} from "../../../services/fn/task-controller/get-all-tasksbyuser";
+import {HttpHeaders} from "@angular/common/http";
 
 @Component({
     selector: 'app-dashboard',
@@ -46,18 +47,23 @@ export class DashboardComponent {
         user: this.User ? { id: this.User.id } : undefined
     };
 
+
     loadTasks(userId: number): void {
-        console.log("Fetching tasks for userId:", userId);
+        const token = localStorage.getItem('token');
+        if (!token) {
+            console.error("No token found in localStorage!");
+            return;
+        }
+
         this.taskService.getAllTasksbyuser({ userId }).subscribe({
-                    next: (tasks) => {
-                        this.tasks = tasks;
-                        console.log('Tasks:', this.tasks);
-                    },
-                    error: (err) => {
-                        console.error('Error fetching tasks:', err);
-                    }
-                });
+            next: (tasks) => {
+                this.tasks = tasks;
+            },
+            error: (err) => {
+                console.error('Error fetching tasks:', err);
             }
+        });
+    }
     addTask() {
         const userId = this.User?.id;
         if (userId) {

@@ -37,7 +37,7 @@ public class SecurityConfig {
                         "/configuration/security",
                         "/swagger-ui/**",
                         "/webjars/**",
-                        "/swagger-ui.html","/users/getuser","/api/tasks/**" ).permitAll()
+                        "/swagger-ui.html","/users/getuser").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement()
