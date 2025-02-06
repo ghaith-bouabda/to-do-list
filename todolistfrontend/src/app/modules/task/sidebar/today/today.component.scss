@@ -1,0 +1,40 @@
+.dashboard-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  font-family: 'Inter', sans-serif;
+}
+.task-list {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+  transition: all 0.3s ease;
+}
+
+.task-item:last-child {
+  border-bottom: none;
+}
+
+.task-text {
+  font-size: 1rem;
+  color: #1a1a1a;
+}
+
+.task-text.completed {
+  text-decoration: line-through;
+  color: #a0a0a0;
+}
+
+.task-actions {
+  display: flex;
+  gap: 0.5rem
+}

@@ -8,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './today.component.scss'
 })
 export class TodayComponent {
+    tasks: null | undefined;
 
 }

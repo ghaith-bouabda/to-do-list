@@ -8,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './upcoming.component.scss'
 })
 export class UpcomingComponent {
+  tasks: null | undefined;
 
 }

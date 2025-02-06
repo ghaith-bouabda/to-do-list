@@ -29,6 +29,18 @@ export class DashboardComponent {
             console.error('User ID is not available!');
         }
     }
+    complete(task :Task): void {
+        task={title: task.title,completed:true,id:task.id};
+        if(task.id != null) {
+            this.taskService.updateTask({id:task.id, body:task}).subscribe({
+                next: () => {
+
+                }
+            })
+        }
+        else
+            console.error('Task ID is not available!');
+    }
     // Function to retrieve user data from localStorage
     getUserFromLocalStorage(): { id: number; username: string } | null {
         const user = localStorage.getItem('user');

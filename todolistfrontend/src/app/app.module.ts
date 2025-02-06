@@ -7,7 +7,8 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { RegistrationComponent } from './registration/registration.component';
 import { AuthInterceptor } from './auth.interceptor';
-
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import {TaskModule} from "./modules/task/task.module";
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +19,10 @@ import { AuthInterceptor } from './auth.interceptor';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule, // Make sure HttpClientModule is imported
+    HttpClientModule,
+    DragDropModule,
+    TaskModule,
+// Make sure HttpClientModule is imported
   ],
   providers: [
     {
