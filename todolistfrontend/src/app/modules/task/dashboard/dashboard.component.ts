@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { TaskControllerService } from "../../../services/services/task-controller.service";
 import { Router } from "@angular/router";
 import { Task } from "../../../services/models/task";
-import {GetAllTasksbyuser$Params} from "../../../services/fn/task-controller/get-all-tasksbyuser";
-import {HttpHeaders} from "@angular/common/http";
 
 @Component({
     selector: 'app-dashboard',
@@ -56,7 +54,9 @@ export class DashboardComponent {
     task: Task = {
         title: '',
         completed: false,
-        user: this.User ? { id: this.User.id } : undefined
+        user: this.User ? { id: this.User.id } : undefined,
+        dueDate:''
+
     };
 
 
@@ -67,7 +67,7 @@ export class DashboardComponent {
             return;
         }
 
-        this.taskService.getAllTasksbyuser({ userId }).subscribe({
+        this.taskService.getAllTasksByUser({ userId }).subscribe({
             next: (tasks) => {
                 this.tasks = tasks;
             },
@@ -82,7 +82,8 @@ export class DashboardComponent {
             const newTask: Task = {
                 title: this.task.title,
                 completed: false,
-                user: { id: userId }
+                user: { id: userId },
+                dueDate: this.task.dueDate,
             };
             this.taskService.createTask({ body: newTask }).subscribe({
                 next: (res) => {

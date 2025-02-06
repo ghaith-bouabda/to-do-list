@@ -47,7 +47,7 @@ export class AuthenticationService extends BaseService {
    */
   register(params: Register$Params, context?: HttpContext): Observable<AuthenticationResponse> {
     return this.register$Response(params, context).pipe(
-      map((r: StrictHttpResponse<AuthenticationResponse>): AuthenticationResponse => r.body)
+        map((r: StrictHttpResponse<AuthenticationResponse>): AuthenticationResponse => r.body)
     );
   }
 
@@ -72,7 +72,7 @@ export class AuthenticationService extends BaseService {
    */
   refresh(params?: Refresh$Params, context?: HttpContext): Observable<void> {
     return this.refresh$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
+        map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 
@@ -97,7 +97,7 @@ export class AuthenticationService extends BaseService {
    */
   authentication(params: Authentication$Params, context?: HttpContext): Observable<AuthenticationResponse> {
     return this.authentication$Response(params, context).pipe(
-      map((r: StrictHttpResponse<AuthenticationResponse>): AuthenticationResponse => r.body)
+        map((r: StrictHttpResponse<AuthenticationResponse>): AuthenticationResponse => r.body)
     );
   }
 

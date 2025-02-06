@@ -5,6 +5,7 @@
 import { Users } from '../models/users';
 export interface Task {
   completed?: boolean;
+  dueDate?: string;
   id?: number;
   title?: string;
   user?: Users;

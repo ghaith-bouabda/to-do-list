@@ -7,5 +7,4 @@ export { AuthenticationResponse } from './models/authentication-response';
 export { GrantedAuthority } from './models/granted-authority';
 export { RegisterRequest } from './models/register-request';
 export { Task } from './models/task';
-export { Token } from './models/token';
 export { Users } from './models/users';

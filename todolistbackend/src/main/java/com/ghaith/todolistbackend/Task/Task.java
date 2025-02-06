@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Entity
 @NoArgsConstructor
 @Getter
@@ -22,6 +24,8 @@ public class Task {
 
     private String title;
 
+    @Temporal(TemporalType.DATE)
+    private Date dueDate;
     private boolean completed;
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = true)

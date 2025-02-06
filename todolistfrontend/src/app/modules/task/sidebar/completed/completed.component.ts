@@ -53,7 +53,7 @@ export class CompletedComponent {
       return;
     }
 
-    this.taskService.getAllTasksbyuser({ userId }).subscribe({
+    this.taskService.getAllTasksByUser({ userId }).subscribe({
       next: (tasks) => {
         this.tasks = tasks;
       },

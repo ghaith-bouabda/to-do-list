@@ -10,18 +10,16 @@ import { RequestBuilder } from '../../request-builder';
 
 import { Task } from '../../models/task';
 
-export interface GetAllTasksbyuser$Params {
-  userId: number;
+export interface GetUpcomingTasks$Params {
 }
 
-export function getAllTasksbyuser(http: HttpClient, rootUrl: string, params: GetAllTasksbyuser$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Task>>> {
-  const rb = new RequestBuilder(rootUrl, getAllTasksbyuser.PATH, 'get');
+export function getUpcomingTasks(http: HttpClient, rootUrl: string, params?: GetUpcomingTasks$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Task>>> {
+  const rb = new RequestBuilder(rootUrl, getUpcomingTasks.PATH, 'get');
   if (params) {
-    rb.query('userId', params.userId, {});
   }
 
   return http.request(
-    rb.build({ responseType: 'json', accept: 'application/json', context })
+      rb.build({ responseType: 'json', accept: 'application/json', context })
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
@@ -30,4 +28,4 @@ export function getAllTasksbyuser(http: HttpClient, rootUrl: string, params: Get
   );
 }
 
-getAllTasksbyuser.PATH = '/api/tasks';
+getUpcomingTasks.PATH = '/api/tasks/upcoming';

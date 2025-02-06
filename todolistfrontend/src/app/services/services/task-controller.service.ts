@@ -15,8 +15,12 @@ import { createTask } from '../fn/task-controller/create-task';
 import { CreateTask$Params } from '../fn/task-controller/create-task';
 import { deleteTask } from '../fn/task-controller/delete-task';
 import { DeleteTask$Params } from '../fn/task-controller/delete-task';
-import { getAllTasksbyuser } from '../fn/task-controller/get-all-tasksbyuser';
-import { GetAllTasksbyuser$Params } from '../fn/task-controller/get-all-tasksbyuser';
+import { getAllTasksByUser } from '../fn/task-controller/get-all-tasks-by-user';
+import { GetAllTasksByUser$Params } from '../fn/task-controller/get-all-tasks-by-user';
+import { getTodayTasks } from '../fn/task-controller/get-today-tasks';
+import { GetTodayTasks$Params } from '../fn/task-controller/get-today-tasks';
+import { getUpcomingTasks } from '../fn/task-controller/get-upcoming-tasks';
+import { GetUpcomingTasks$Params } from '../fn/task-controller/get-upcoming-tasks';
 import { Task } from '../models/task';
 import { updateTask } from '../fn/task-controller/update-task';
 import { UpdateTask$Params } from '../fn/task-controller/update-task';
@@ -77,8 +81,33 @@ export class TaskControllerService extends BaseService {
     );
   }
 
+  /** Path part for operation `getAllTasksByUser()` */
+  static readonly GetAllTasksByUserPath = '/api/tasks';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getAllTasksByUser()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllTasksByUser$Response(params: GetAllTasksByUser$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Task>>> {
+    return getAllTasksByUser(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getAllTasksByUser$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllTasksByUser(params: GetAllTasksByUser$Params, context?: HttpContext): Observable<Array<Task>> {
+    return this.getAllTasksByUser$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<Task>>): Array<Task> => r.body)
+    );
+  }
+
   /** Path part for operation `createTask()` */
-  static readonly CreateTaskPath = '/api/tasks/createtask';
+  static readonly CreateTaskPath = '/api/tasks';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -102,27 +131,52 @@ export class TaskControllerService extends BaseService {
     );
   }
 
-  /** Path part for operation `getAllTasksbyuser()` */
-  static readonly GetAllTasksbyuserPath = '/api/tasks';
+  /** Path part for operation `getUpcomingTasks()` */
+  static readonly GetUpcomingTasksPath = '/api/tasks/upcoming';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getAllTasksbyuser()` instead.
+   * To access only the response body, use `getUpcomingTasks()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getAllTasksbyuser$Response(params: GetAllTasksbyuser$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Task>>> {
-    return getAllTasksbyuser(this.http, this.rootUrl, params, context);
+  getUpcomingTasks$Response(params?: GetUpcomingTasks$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Task>>> {
+    return getUpcomingTasks(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `getAllTasksbyuser$Response()` instead.
+   * To access the full response (for headers, for example), `getUpcomingTasks$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getAllTasksbyuser(params: GetAllTasksbyuser$Params, context?: HttpContext): Observable<Array<Task>> {
-    return this.getAllTasksbyuser$Response(params, context).pipe(
+  getUpcomingTasks(params?: GetUpcomingTasks$Params, context?: HttpContext): Observable<Array<Task>> {
+    return this.getUpcomingTasks$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<Task>>): Array<Task> => r.body)
+    );
+  }
+
+  /** Path part for operation `getTodayTasks()` */
+  static readonly GetTodayTasksPath = '/api/tasks/today';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getTodayTasks()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getTodayTasks$Response(params?: GetTodayTasks$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Task>>> {
+    return getTodayTasks(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getTodayTasks$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getTodayTasks(params?: GetTodayTasks$Params, context?: HttpContext): Observable<Array<Task>> {
+    return this.getTodayTasks$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<Task>>): Array<Task> => r.body)
     );
   }

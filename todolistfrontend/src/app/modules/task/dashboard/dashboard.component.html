@@ -12,6 +12,7 @@
                     [(ngModel)]="task.title"
                     name="newTask"
             >
+    <input type="date" [(ngModel)]="task.dueDate" name="newTask">
             <button type="submit" class="task-submit-btn" (click)="addTask()">
                 Add Task
             </button>

@@ -4,7 +4,6 @@
 
 import { GrantedAuthority } from '../models/granted-authority';
 import { Task } from '../models/task';
-import { Token } from '../models/token';
 export interface Users {
   accountNonExpired?: boolean;
   accountNonLocked?: boolean;
@@ -13,9 +12,7 @@ export interface Users {
   email?: string;
   enabled?: boolean;
   id?: number;
-  password?: string;
   role?: 'USER' | 'ADMIN';
   tasks?: Array<Task>;
-  tokens?: Array<Token>;
   username?: string;
 }

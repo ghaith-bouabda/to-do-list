@@ -8,26 +8,26 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { Task } from '../../models/task';
+import { Users } from '../../models/users';
 
-export interface CreateTask$Params {
-      body: Task
+export interface Getuser$Params {
+  Username: string;
 }
 
-export function createTask(http: HttpClient, rootUrl: string, params: CreateTask$Params, context?: HttpContext): Observable<StrictHttpResponse<Task>> {
-  const rb = new RequestBuilder(rootUrl, createTask.PATH, 'post');
+export function getuser(http: HttpClient, rootUrl: string, params: Getuser$Params, context?: HttpContext): Observable<StrictHttpResponse<Users>> {
+  const rb = new RequestBuilder(rootUrl, getuser.PATH, 'get');
   if (params) {
-    rb.body(params.body, 'application/json');
+    rb.query('Username', params.Username, {});
   }
 
   return http.request(
-      rb.build({ responseType: 'json', accept: 'application/json', context })
+    rb.build({ responseType: 'json', accept: 'application/json', context })
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Task>;
+      return r as StrictHttpResponse<Users>;
     })
   );
 }
 
-createTask.PATH = '/api/tasks';
+getuser.PATH = '/users/getuser';

@@ -8,6 +8,7 @@ import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { TaskControllerService } from './services/task-controller.service';
 import { AuthenticationService } from './services/authentication.service';
+import { UsersControllerService } from './services/users-controller.service';
 
 /**
  * Module that provides all services and configuration.
@@ -19,6 +20,7 @@ import { AuthenticationService } from './services/authentication.service';
   providers: [
     TaskControllerService,
     AuthenticationService,
+    UsersControllerService,
     ApiConfiguration
   ],
 })
