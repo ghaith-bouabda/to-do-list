@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import {Router} from "@angular/router";
-import {AuthenticationService} from "../services/services/authentication.service";
-import {RegisterRequest} from "../services/models/register-request";
+import { Router } from "@angular/router";
+import { AuthenticationService } from "../services/services/authentication.service";
+import { RegisterRequest } from "../services/models/register-request";
 
 @Component({
     selector: 'app-registration',
@@ -11,20 +11,23 @@ import {RegisterRequest} from "../services/models/register-request";
 })
 export class RegistrationComponent {
 
-    constructor(private router: Router,
-                private authService: AuthenticationService) {
-    }
-    registerRequest: RegisterRequest = {email: '', username:'', password: ''};
+    constructor(
+        private router: Router,
+        private authService: AuthenticationService
+    ) {}
 
-    register(){
+    registerRequest: RegisterRequest = { email: '', username: '', password: '' };
+
+    register() {
         this.authService.register({
             body: this.registerRequest
-        }) .subscribe({
+        }).subscribe({
             next: () => {
                 this.router.navigate(['login']);
+            },
+            error: (err) => {
+                console.error('Registration failed:', err); // Handle registration errors
             }
         });
-
     }
-
 }

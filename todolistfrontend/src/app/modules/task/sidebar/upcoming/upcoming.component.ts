@@ -21,13 +21,24 @@ export class UpcomingComponent {
   loadUpcomingTasks(): void {
     this.taskService.getUpcomingTasks().subscribe({
       next: (tasks) => {
-        console.log(tasks)
         this.tasks = tasks;
       },
       error: (err) => {
         console.error('Error fetching upcoming tasks:', err);
       }
     });
+  }
+  complete(task :Task): void {
+    task={title: task.title,completed:true,id:task.id};
+    if(task.id != null) {
+      this.taskService.updateTask({id:task.id, body:task}).subscribe({
+        next: () => {
+          this.tasks = this.tasks.filter(t => t.id !== task.id);
+        }
+      })
+    }
+    else
+      console.error('Task ID is not available!');
   }
 
 }

@@ -55,13 +55,13 @@ export class CompletedComponent {
 
     this.taskService.getAllTasksByUser({ userId }).subscribe({
       next: (tasks) => {
-        this.tasks = tasks;
-      },
+        this.tasks = tasks.filter(task => task.completed === true);      },
       error: (err) => {
         console.error('Error fetching tasks:', err);
       }
     });
   }
+
 
 
 

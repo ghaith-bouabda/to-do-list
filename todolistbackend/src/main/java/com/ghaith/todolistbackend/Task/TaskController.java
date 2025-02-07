@@ -1,13 +1,11 @@
 package com.ghaith.todolistbackend.Task;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://172.18.0.1:8000")
 @RequestMapping("/api/tasks")
 @RequiredArgsConstructor  // Lombok annotation to generate constructor with required arguments
 public class TaskController {
@@ -27,7 +25,7 @@ public class TaskController {
     }
 
     // Get today's tasks
-    @GetMapping(value = "/today" , produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/today" )
     public List<Task> getTodayTasks() {
         return taskService.getTodayTasks();
     }

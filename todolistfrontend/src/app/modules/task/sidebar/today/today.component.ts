@@ -23,7 +23,6 @@ export class TodayComponent {
             next: async (response) => {
                 if (response instanceof Blob) {
                     const jsonString = await response.text();
-                    console.log(jsonString);
                     this.tasks = JSON.parse(jsonString);
                 } else {
                     this.tasks = response;
@@ -35,7 +34,19 @@ export class TodayComponent {
         });
     }
 
+    complete(task :Task): void {
+        task={title: task.title,completed:true,id:task.id};
+        if(task.id != null) {
+            this.taskService.updateTask({id:task.id, body:task}).subscribe({
+                next: () => {
+                    this.tasks = this.tasks.filter(t => t.id !== task.id);
 
+                }
+            })
+        }
+        else
+            console.error('Task ID is not available!');
+    }
 
 
 }

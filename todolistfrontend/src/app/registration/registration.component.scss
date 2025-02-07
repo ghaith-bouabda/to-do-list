@@ -133,3 +133,13 @@
   }
 }
 
+.validation-error {
+  color: red;
+  font-size: 0.875em;
+  margin-top: 0.25em;
+  font-weight: bold; /* Make the text bold */
+  background-color: #ffe6e6; /* Light red background */
+  padding: 5px; /* Add some padding */
+  border-radius: 4px; /* Rounded corners */
+  border: 1px solid red; /* Red border */
+}
